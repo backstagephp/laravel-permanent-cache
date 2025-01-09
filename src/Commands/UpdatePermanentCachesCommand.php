@@ -6,8 +6,9 @@ use Exception;
 use Illuminate\Console\Command;
 use Spatie\Emoji\Emoji;
 use SplObjectStorage;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Vormkracht10\PermanentCache\Facades\PermanentCache;
+
+use function Laravel\Prompts\progress;
 
 class UpdatePermanentCachesCommand extends Command
 {
@@ -47,28 +48,26 @@ class UpdatePermanentCachesCommand extends Command
             $caches[$cache] = $parameters;
         }
 
-        ProgressBar::setFormatDefinition('custom', ' %current%/%max% [%bar%] %message%');
+        $progressBar = progress(label: 'Updating caches', steps: $caches->count());
 
-        $progressBar = $this->output->createProgressBar($caches->count());
-
-        $progressBar->setFormat('custom');
-        $progressBar->setMessage('Starting...');
+        $progressBar->cancelMessage = 'Failed to update caches';
 
         $progressBar->start();
 
         foreach ($caches as $c) {
             $cache = $caches->current();
+
             $parameters = $caches->getInfo();
 
             $currentTask = $cache->getName();
-            $emoji = ($progressBar->getProgress() % 2 ? Emoji::hourglassNotDone() : Emoji::hourglassDone());
+            $emoji = ($progressBar->progress % 2 ? Emoji::hourglassNotDone() : Emoji::hourglassDone());
 
-            $progressBar->setMessage('Updating: '.$currentTask.' '.$emoji);
+            $progressBar->hint('Updating: '.$currentTask.' '.$emoji);
 
             try {
                 $cache->update($parameters);
             } catch (Exception $exception) {
-                $progressBar->setMessage('Error: '.$currentTask.' '.Emoji::warning());
+                $progressBar->hint('Error: '.$currentTask.' '.Emoji::warning());
 
                 sleep(2);
             }
@@ -76,7 +75,6 @@ class UpdatePermanentCachesCommand extends Command
             $progressBar->advance();
         }
 
-        $progressBar->setMessage('Finished!');
         $progressBar->finish();
     }
 }
