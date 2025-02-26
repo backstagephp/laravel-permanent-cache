@@ -1,6 +1,6 @@
 <?php
 
-use Vormkracht10\PermanentCache\Cached;
+use Backstage\PermanentCache\Laravel\Cached;
 
 class TestPermanentCache extends Cached
 {

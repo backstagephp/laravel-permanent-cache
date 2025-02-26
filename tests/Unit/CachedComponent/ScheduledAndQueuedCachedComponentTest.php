@@ -2,7 +2,7 @@
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Queue;
-use Vormkracht10\PermanentCache\Facades\PermanentCache;
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 
 require_once 'tests/Unit/CachedComponent/ScheduledAndQueuedCachedComponent.php';
 
@@ -10,7 +10,7 @@ beforeEach(function () {
     Cache::driver('file')->clear();
     Queue::fake();
 
-    (fn () => $this->caches = new \SplObjectStorage)->call(app(\Vormkracht10\PermanentCache\PermanentCache::class));
+    (fn () => $this->caches = new \SplObjectStorage)->call(app(\Backstage\PermanentCache\Laravel\PermanentCache::class));
 });
 
 test('test scheduled queued cached component gets scheduled', function () {

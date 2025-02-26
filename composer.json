@@ -1,27 +1,30 @@
 {
-    "name": "vormkracht10/laravel-permanent-cache",
+    "name": "backstage/laravel-permanent-cache",
     "description": "Using Laravel Permanent Cache you can cache intensive operations permanently and update them in the background, so your users don't have to wait!",
     "keywords": [
+        "backstage",
         "vormkracht10",
         "laravel",
-        "laravel-permanent-cache"
+        "php",
+        "cache",
+        "permanent-cache"
     ],
-    "homepage": "https://github.com/vormkracht10/laravel-permanent-cache",
+    "homepage": "https://github.com/backstagephp/laravel-permanent-cache",
     "license": "MIT",
     "authors": [
         {
             "name": "Mark van Eijk",
-            "email": "mark@vormkracht10.nl",
+            "email": "mark@backstagephp.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "illuminate/contracts": "^10.0|^11.0",
+        "illuminate/contracts": "^10.0 || ^11.0 || ^12.0",
         "laravel/helpers": "^1.7",
         "lorisleiva/cron-translator": "^0.4.5",
         "spatie/emoji": "^4.1",
-        "spatie/laravel-package-tools": "^1.14.0"
+        "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
         "larastan/larastan": "^2.9.6",
@@ -37,7 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Vormkracht10\\PermanentCache\\": "src/"
+            "Backstage\\PermanentCache\\Laravel\\": "src/"
         },
         "files": [
             "src/helpers.php"
@@ -45,7 +48,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Vormkracht10\\PermanentCache\\Tests\\": "tests/"
+            "Backstage\\PermanentCache\\Laravel\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -65,10 +68,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vormkracht10\\PermanentCache\\PermanentCacheServiceProvider"
+                "Backstage\\PermanentCache\\Laravel\\PermanentCacheServiceProvider"
             ],
             "aliases": {
-                "PermanentCache": "Vormkracht10\\PermanentCache\\PermanentCache"
+                "PermanentCache": "Backstage\\PermanentCache\\Laravel\\PermanentCache"
             }
         }
     },

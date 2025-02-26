@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\PermanentCache;
+namespace Backstage\PermanentCache\Laravel;
 
 use Cron\CronExpression;
 use Illuminate\Bus\Queueable;
@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use ReflectionClass;
-use Vormkracht10\PermanentCache\Events\PermanentCacheUpdated;
-use Vormkracht10\PermanentCache\Events\PermanentCacheUpdating;
+use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdated;
+use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdating;
 
 /**
  * @template V

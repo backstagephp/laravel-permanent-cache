@@ -1,10 +1,10 @@
 <?php
 
-namespace Vormkracht10\PermanentCache\Events;
+namespace Backstage\PermanentCache\Laravel\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
-use Vormkracht10\PermanentCache\Cached;
-use Vormkracht10\PermanentCache\CachedComponent;
+use Backstage\PermanentCache\Laravel\Cached;
+use Backstage\PermanentCache\Laravel\CachedComponent;
 
 class PermanentCacheUpdated
 {

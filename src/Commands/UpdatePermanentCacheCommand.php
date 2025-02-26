@@ -1,15 +1,15 @@
 <?php
 
-namespace Vormkracht10\PermanentCache\Commands;
+namespace Backstage\PermanentCache\Laravel\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
 use Spatie\Emoji\Emoji;
 use SplObjectStorage;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Vormkracht10\PermanentCache\Facades\PermanentCache;
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 
-class UpdatePermanentCachesCommand extends Command
+class UpdatePermanentCacheCommand extends Command
 {
     /**
      * The name and signature of the console command.

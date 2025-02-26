@@ -1,10 +1,9 @@
 <?php
 
-namespace Vormkracht10\PermanentCache\Tests;
+namespace Backstage\PermanentCache\Laravel\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Vormkracht10\PermanentCache\PermanentCacheServiceProvider;
+use Backstage\PermanentCache\Laravel\PermanentCacheServiceProvider;
 
 class TestCase extends Orchestra
 {

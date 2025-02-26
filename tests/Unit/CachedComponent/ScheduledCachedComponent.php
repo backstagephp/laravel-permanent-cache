@@ -1,8 +1,8 @@
 <?php
 
-use Vormkracht10\PermanentCache\Scheduled;
+use Backstage\PermanentCache\Laravel\Scheduled;
 
-class ScheduledCachedComponent extends \Vormkracht10\PermanentCache\CachedComponent implements Scheduled
+class ScheduledCachedComponent extends \Backstage\PermanentCache\Laravel\CachedComponent implements Scheduled
 {
     protected $store = 'file:unique-cache-key';
 

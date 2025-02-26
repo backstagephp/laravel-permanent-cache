@@ -1,11 +1,11 @@
 # Laravel Permanent Cache
 
-[![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/laravel-permanent-cache.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-permanent-cache)
-[![Tests](https://github.com/vormkracht10/laravel-permanent-cache/actions/workflows/pest.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-permanent-cache/actions/workflows/run-tests.yml)
-[![PHPStan](https://github.com/vormkracht10/laravel-permanent-cache/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-permanent-cache/actions/workflows/phpstan.yml)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/vormkracht10/laravel-permanent-cache)
-![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/vormkracht10/laravel-permanent-cache)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/laravel-permanent-cache.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-permanent-cache)
+[![Total Downloads](https://img.shields.io/packagist/dt/backstage/laravel-permanent-cache.svg?style=flat-square)](https://packagist.org/packages/backstage/laravel-permanent-cache)
+[![Tests](https://github.com/backstagephp/laravel-permanent-cache/actions/workflows/pest.yml/badge.svg?branch=main)](https://github.com/backstagephp/laravel-permanent-cache/actions/workflows/run-tests.yml)
+[![PHPStan](https://github.com/backstagephp/laravel-permanent-cache/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/backstagephp/laravel-permanent-cache/actions/workflows/phpstan.yml)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/backstagephp/laravel-permanent-cache)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/backstage/laravel-permanent-cache)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/backstage/laravel-permanent-cache.svg?style=flat-square)](https://packagist.org/packages/backstage/laravel-permanent-cache)
 
 This package aims to provide functionality of using a *permanent* cache for tasks using heavy Eloquent models, database queries or other long running tasks in your Laravel app. The permanent cache updates itself in the background using a scheduled task or by listening to an event so no users are harmed waiting on a given request.
 
@@ -16,13 +16,13 @@ Its use case is primarily to be used for heavy tasks that should return complex 
 You can install the package via composer:
 
 ```bash
-composer require vormkracht10/laravel-permanent-cache
+composer require backstage/laravel-permanent-cache
 ```
 
 Optionally, publish config files to change the default config:
 
 ```bash
-php artisan vendor:publish --provider="Vormkracht10\PermanentCache\PermanentCacheServiceProvider"
+php artisan vendor:publish --provider="Backstage\PermanentCache\Laravel\PermanentCacheServiceProvider"
 ```
 
 The default config options:
@@ -57,7 +57,7 @@ We recommend putting this in the `boot` method of your `AppServiceProvider`.
 You can register caches in multiple ways:
 
 ```php
-use \Vormkracht10\PermanentCache\Facades\PermanentCache;
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 
 # When you don't need parameters per class, you can use direct parameters or an array:
 
@@ -98,7 +98,7 @@ You can define the cache store and key using a `$store` property on the class, f
 the definition: `cache-driver:key`, for example: `redis:a-unique-cache-key`:
 
 ```php
-use Vormkracht10\PermanentCache\Cached;
+use Backstage\PermanentCache\Laravel\Cached;
 
 class LongRunningTask extends Cached
 {
@@ -116,7 +116,7 @@ class LongRunningTask extends Cached
 If you only want to listen for a single event you can type hint the event in the `run` method:
 
 ```php
-use Vormkracht10\PermanentCache\Cached;
+use Backstage\PermanentCache\Laravel\Cached;
 
 class LongRunningTaskListeningForEvents extends Cached
 {
@@ -134,7 +134,7 @@ class LongRunningTaskListeningForEvents extends Cached
 Permanent Caches can be updated by listening to *multiple* events using an array on the `$events` property:
 
 ```php
-use Vormkracht10\PermanentCache\Cached;
+use Backstage\PermanentCache\Laravel\Cached;
 
 class LongRunningTaskListeningForEvents extends Cached
 {
@@ -161,8 +161,8 @@ Note that if you decide to listen to events *and* schedule your cache, you shoul
 accept an `$event` parameter in the `run` method, because when the schedule runs, this won't be given to you.
 
 ```php
-use Vormkracht10\PermanentCache\Cached;
-use Vormkracht10\PermanentCache\Scheduled;
+use Backstage\PermanentCache\Laravel\Cached;
+use Backstage\PermanentCache\Laravel\Scheduled;
 
 class LongRunningTaskExecutedPeriodicallyOrWhenAnEventHappens extends Cached implements Scheduled
 {
@@ -194,8 +194,8 @@ Permanent Caches can be updated using a dispatch to the queue by implementing La
 
 ```php
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Vormkracht10\PermanentCache\Cached;
-use Vormkracht10\PermanentCache\Scheduled;
+use Backstage\PermanentCache\Laravel\Cached;
+use Backstage\PermanentCache\Laravel\Scheduled;
 
 class LongRunningTaskExecutedPeriodicallyOrWhenAnEventHappensDispatchedOnTheQueue extends Cached implements ShouldQueue
 {
@@ -217,8 +217,8 @@ using the scheduler, or queue, while optionally listening for events to happen t
 
 ```php
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Vormkracht10\PermanentCache\CachedComponent;
-use Vormkracht10\PermanentCache\Scheduled;
+use Backstage\PermanentCache\Laravel\CachedComponent;
+use Backstage\PermanentCache\Laravel\Scheduled;
 
 class HeavyComponent extends CachedComponent implements Scheduled, ShouldQueue
 {
@@ -258,7 +258,7 @@ LongTaskInPermanentCache::update(['parameter' => 'value']);
 Or you can update all caches at once:
 
 ```php
-use Vormkracht10\PermanentCache\Facades\PermanentCache;
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 
 PermanentCache::update();
 ```
@@ -269,10 +269,10 @@ These events get dispatched when a Permanent Cache gets updated:
 
 ```php
 # Before updating the cache
-use Vormkracht10\PermanentCache\Events\PermanentCacheUpdating;
+use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdating;
 
 # After the cache has been updated
-use Vormkracht10\PermanentCache\Events\PermanentCacheUpdated;
+use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdated;
 ```
 
 ## Console commands
@@ -291,7 +291,7 @@ php artisan permanent-cache:status --parameters --filter=
 
 ## Credits
 
--   [Mark van Eijk](https://github.com/vormkracht10)
+-   [Mark van Eijk](https://github.com/markvaneijk)
 -   [David den Haan](https://github.com/david-d-h)
 -   [All Contributors](../../contributors)
 

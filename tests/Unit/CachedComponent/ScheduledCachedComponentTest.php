@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Event;
-use Vormkracht10\PermanentCache\Events\PermanentCacheUpdated;
-use Vormkracht10\PermanentCache\Events\PermanentCacheUpdating;
-use Vormkracht10\PermanentCache\Facades\PermanentCache;
+use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdated;
+use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdating;
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 
 require_once 'tests/Unit/CachedComponent/ScheduledCachedComponent.php';
 
 beforeEach(function () {
     Cache::driver('file')->clear();
 
-    (fn () => $this->cachers = new \SplObjectStorage)->call(app(\Vormkracht10\PermanentCache\PermanentCache::class));
+    (fn () => $this->cachers = new \SplObjectStorage)->call(app(\Backstage\PermanentCache\Laravel\PermanentCache::class));
 });
 
 test('test scheduled cached component gets scheduled', function () {

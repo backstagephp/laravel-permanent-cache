@@ -1,5 +1,5 @@
 <?php
 
-use Vormkracht10\PermanentCache\Tests\TestCase;
+use Backstage\PermanentCache\Laravel\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

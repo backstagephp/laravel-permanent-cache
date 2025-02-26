@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Vormkracht10\PermanentCache\CachedComponent;
-use Vormkracht10\PermanentCache\Scheduled;
+use Backstage\PermanentCache\Laravel\CachedComponent;
+use Backstage\PermanentCache\Laravel\Scheduled;
 
 class ScheduledAndQueuedCachedComponent extends CachedComponent implements Scheduled, ShouldQueue
 {

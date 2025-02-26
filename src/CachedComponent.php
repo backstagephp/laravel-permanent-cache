@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\PermanentCache;
+namespace Backstage\PermanentCache\Laravel;
 
 use Illuminate\Support\HtmlString;
 use Illuminate\View\Component;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\PermanentCache\Commands;
+namespace Backstage\PermanentCache\Laravel\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
@@ -8,20 +8,20 @@ use Illuminate\Support\Collection;
 use Lorisleiva\CronTranslator\CronTranslator;
 use Spatie\Emoji\Emoji;
 use Symfony\Component\Console\Helper\TableSeparator;
-use Vormkracht10\PermanentCache\CachesValue;
-use Vormkracht10\PermanentCache\Facades\PermanentCache;
-use Vormkracht10\PermanentCache\Scheduled;
+use Backstage\PermanentCache\Laravel\CachesValue;
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
+use Backstage\PermanentCache\Laravel\Scheduled;
 
-class PermanentCachesStatusCommand extends Command
+class PermanentCacheStatusCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'permanent-cache:status 
+    protected $signature = 'permanent-cache:status
                             {--P|parameters}
-                            {--F|filter=} 
+                            {--F|filter=}
                             {--S|sort= : The statistic to sort on, this can be one of ["size", "updated", "frequency"]}
                             {--A|ascending : Whether the sorting should be done ascending instead of descending}';
 
