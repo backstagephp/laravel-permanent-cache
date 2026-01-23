@@ -4,9 +4,7 @@ class CachedComponent extends \Backstage\PermanentCache\Laravel\CachedComponent
 {
     protected $store = 'file:unique-cache-key';
 
-    public function __construct(public string $value = '')
-    {
-    }
+    public function __construct(public string $value = '') {}
 
     public function render(): string
     {

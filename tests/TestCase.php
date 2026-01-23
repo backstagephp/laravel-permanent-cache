@@ -2,8 +2,8 @@
 
 namespace Backstage\PermanentCache\Laravel\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use Backstage\PermanentCache\Laravel\PermanentCacheServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

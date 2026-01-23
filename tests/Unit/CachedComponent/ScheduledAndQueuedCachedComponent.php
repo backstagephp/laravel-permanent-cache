@@ -1,16 +1,14 @@
 <?php
 
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Backstage\PermanentCache\Laravel\CachedComponent;
 use Backstage\PermanentCache\Laravel\Scheduled;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ScheduledAndQueuedCachedComponent extends CachedComponent implements Scheduled, ShouldQueue
 {
     protected $store = 'file:unique-cache-key';
 
-    public function __construct(public string $value = '')
-    {
-    }
+    public function __construct(public string $value = '') {}
 
     public function render(): string
     {

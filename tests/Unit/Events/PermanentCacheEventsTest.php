@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Event;
 use Backstage\PermanentCache\Laravel\Cached;
 use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdated;
 use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdating;
 use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Event;
 
 require_once 'tests/Unit/Events/TestEvent.php';
 require_once 'tests/Unit/Events/TestPermanentCache.php';

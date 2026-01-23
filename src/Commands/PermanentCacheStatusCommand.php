@@ -2,15 +2,13 @@
 
 namespace Backstage\PermanentCache\Laravel\Commands;
 
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Collection;
 use Lorisleiva\CronTranslator\CronTranslator;
 use Spatie\Emoji\Emoji;
 use Symfony\Component\Console\Helper\TableSeparator;
-use Backstage\PermanentCache\Laravel\CachesValue;
-use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
-use Backstage\PermanentCache\Laravel\Scheduled;
 
 class PermanentCacheStatusCommand extends Command
 {
@@ -58,8 +56,12 @@ class PermanentCacheStatusCommand extends Command
         $a = $a[0]->expression()?->getNextRunDate();
         $b = $b[0]->expression()?->getNextRunDate();
 
-        if (is_null($a)) return is_null($b) ? 0 : -1;
-        if (is_null($b)) return 1;
+        if (is_null($a)) {
+            return is_null($b) ? 0 : -1;
+        }
+        if (is_null($b)) {
+            return 1;
+        }
 
         return $a > $b ? 1 : -1;
     }
@@ -120,7 +122,7 @@ class PermanentCacheStatusCommand extends Command
             }
 
             $tableRows[] = $row;
-            $tableRows[] = new TableSeparator();
+            $tableRows[] = new TableSeparator;
         }
 
         array_pop($tableRows);

@@ -2,15 +2,15 @@
 
 namespace Backstage\PermanentCache\Laravel\Events;
 
-use Illuminate\Foundation\Events\Dispatchable;
 use Backstage\PermanentCache\Laravel\Cached;
 use Backstage\PermanentCache\Laravel\CachedComponent;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class PermanentCacheUpdating
 {
     use Dispatchable;
 
-    public function __construct(public readonly Cached|CachedComponent $cache)
+    public function __construct(public readonly Cached | CachedComponent $cache)
     {
         //
     }

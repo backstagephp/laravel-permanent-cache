@@ -1,5 +1,3 @@
 <?php
 
-class TestEvent
-{
-}
+class TestEvent {}
