@@ -16,6 +16,6 @@ if (! function_exists('readable_size')) {
             $decimals = 0;
         }
 
-        return number_format($size, $decimals, $decimal_separator, $thousands_separator).' '.$unit;
+        return number_format($size, $decimals, $decimal_separator, $thousands_separator) . ' ' . $unit;
     }
 }

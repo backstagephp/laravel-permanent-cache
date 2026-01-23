@@ -26,6 +26,6 @@ test('test cached component with parameters is cached correctly', function () {
     $firstRunOutput = Blade::renderComponent($cachedComponentWithParameters);
     $secondRunOutput = Blade::renderComponent($cachedComponentWithParameters);
 
-    $this->assertEquals($firstRunOutput, '<div>This is a '.$randomString.' component!</div>');
-    $this->assertEquals($secondRunOutput, '<div>This is a '.$randomString.' component!</div>');
+    $this->assertEquals($firstRunOutput, '<div>This is a ' . $randomString . ' component!</div>');
+    $this->assertEquals($secondRunOutput, '<div>This is a ' . $randomString . ' component!</div>');
 });

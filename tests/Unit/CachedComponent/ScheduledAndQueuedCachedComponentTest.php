@@ -1,8 +1,8 @@
 <?php
 
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Queue;
-use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 
 require_once 'tests/Unit/CachedComponent/ScheduledAndQueuedCachedComponent.php';
 

@@ -45,7 +45,7 @@ class PermanentCache
                 $cacheInstance = $this->app->make($cache, $parameters);
 
                 if ([] !== $events = $cacheInstance->getListenerEvents()) {
-                    foreach($events as $event) {
+                    foreach ($events as $event) {
                         Event::listen($event, fn ($e) => $cacheInstance->handle($e));
                     }
                 }

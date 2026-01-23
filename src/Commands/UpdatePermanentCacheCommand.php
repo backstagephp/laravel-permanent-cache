@@ -2,12 +2,12 @@
 
 namespace Backstage\PermanentCache\Laravel\Commands;
 
+use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 use Exception;
 use Illuminate\Console\Command;
 use Spatie\Emoji\Emoji;
 use SplObjectStorage;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
 
 class UpdatePermanentCacheCommand extends Command
 {
@@ -63,12 +63,12 @@ class UpdatePermanentCacheCommand extends Command
             $currentTask = $cache->getName();
             $emoji = ($progressBar->getProgress() % 2 ? Emoji::hourglassNotDone() : Emoji::hourglassDone());
 
-            $progressBar->setMessage('Updating: '.$currentTask.' '.$emoji);
+            $progressBar->setMessage('Updating: ' . $currentTask . ' ' . $emoji);
 
             try {
                 $cache->update($parameters);
             } catch (Exception $exception) {
-                $progressBar->setMessage('Error: '.$currentTask.' '.Emoji::warning());
+                $progressBar->setMessage('Error: ' . $currentTask . ' ' . Emoji::warning());
 
                 sleep(2);
             }
