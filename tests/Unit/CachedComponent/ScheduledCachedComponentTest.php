@@ -3,6 +3,7 @@
 use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdated;
 use Backstage\PermanentCache\Laravel\Events\PermanentCacheUpdating;
 use Backstage\PermanentCache\Laravel\Facades\PermanentCache;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Event;
 
 require_once 'tests/Unit/CachedComponent/ScheduledCachedComponent.php';
@@ -10,7 +11,7 @@ require_once 'tests/Unit/CachedComponent/ScheduledCachedComponent.php';
 beforeEach(function () {
     Cache::driver('file')->clear();
 
-    (fn () => $this->cachers = new \SplObjectStorage)->call(app(\Backstage\PermanentCache\Laravel\PermanentCache::class));
+    (fn () => $this->cachers = new SplObjectStorage)->call(app(Backstage\PermanentCache\Laravel\PermanentCache::class));
 });
 
 test('test scheduled cached component gets scheduled', function () {
@@ -18,7 +19,7 @@ test('test scheduled cached component gets scheduled', function () {
         ScheduledCachedComponent::class,
     ]);
 
-    $events = collect(app(\Illuminate\Console\Scheduling\Schedule::class)->events())
+    $events = collect(app(Schedule::class)->events())
         ->filter(fn ($schedule) => $schedule->description === 'ScheduledCachedComponent');
 
     expect($events)->toHaveCount(1);
@@ -32,7 +33,7 @@ test('test scheduled cached component with parameters gets scheduled', function 
         ScheduledCachedComponent::class => ['parameter' => 'test cached'],
     ]);
 
-    $events = collect(app(\Illuminate\Console\Scheduling\Schedule::class)->events())
+    $events = collect(app(Schedule::class)->events())
         ->filter(fn ($schedule) => $schedule->description === 'ScheduledCachedComponent');
 
     expect($events)->toHaveCount(1);

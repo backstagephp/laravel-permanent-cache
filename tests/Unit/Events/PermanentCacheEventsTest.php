@@ -12,7 +12,7 @@ require_once 'tests/Unit/Events/TestPermanentCache.php';
 
 beforeEach(function () {
     Cache::driver('file')->clear();
-    (fn () => $this->cachers = new \SplObjectStorage)->call(app(\Backstage\PermanentCache\Laravel\PermanentCache::class));
+    (fn () => $this->cachers = new SplObjectStorage)->call(app(Backstage\PermanentCache\Laravel\PermanentCache::class));
 });
 
 test('caches listeners registers when using the PermanentCache facade', function () {
@@ -51,7 +51,7 @@ test('cache gets updated when listening event gets fired', function () {
 
 test('cache will dispatch the updating and updated events when it gets invoked', function () {
     Event::fakeExcept(TestEvent::class);
-    Permanentcache::caches(TestPermanentCache::class);
+    PermanentCache::caches(TestPermanentCache::class);
 
     event(new TestEvent);
 

@@ -10,7 +10,7 @@ beforeEach(function () {
     Cache::driver('file')->clear();
     Queue::fake();
 
-    (fn () => $this->caches = new \SplObjectStorage)->call(app(\Backstage\PermanentCache\Laravel\PermanentCache::class));
+    (fn () => $this->caches = new SplObjectStorage)->call(app(Backstage\PermanentCache\Laravel\PermanentCache::class));
 });
 
 test('test scheduled queued cached component gets scheduled', function () {

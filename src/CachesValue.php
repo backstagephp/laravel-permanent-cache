@@ -93,7 +93,7 @@ trait CachesValue
 
     public function getParameters()
     {
-        return collect((new \ReflectionClass(static::class))
+        return collect((new ReflectionClass(static::class))
             ->getProperties(\ReflectionProperty::IS_PUBLIC))
             ->filter(fn (\ReflectionProperty $p) => $p->class === static::class)
             ->mapWithKeys(fn (\ReflectionProperty $p) => [$p->name => $p->getValue($this)])

@@ -1,8 +1,9 @@
 <?php
 
+use Backstage\PermanentCache\Laravel\CachedComponent;
 use Backstage\PermanentCache\Laravel\Scheduled;
 
-class ScheduledCachedComponent extends \Backstage\PermanentCache\Laravel\CachedComponent implements Scheduled
+class ScheduledCachedComponent extends CachedComponent implements Scheduled
 {
     protected $store = 'file:unique-cache-key';
 
