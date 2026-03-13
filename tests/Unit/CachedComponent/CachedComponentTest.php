@@ -1,12 +1,13 @@
 <?php
 
+use Backstage\PermanentCache\Laravel\PermanentCache;
 use Illuminate\Support\Facades\Blade;
 
 require_once 'tests/Unit/CachedComponent/CachedComponent.php';
 
 beforeEach(function () {
     Cache::driver('file')->clear();
-    (fn () => $this->cachers = new \SplObjectStorage)->call(app(\Backstage\PermanentCache\Laravel\PermanentCache::class));
+    (fn () => $this->cachers = new SplObjectStorage)->call(app(PermanentCache::class));
 });
 
 test('test cached component is cached second time', function () {

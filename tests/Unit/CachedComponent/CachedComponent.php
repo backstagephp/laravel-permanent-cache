@@ -1,6 +1,6 @@
 <?php
 
-class CachedComponent extends \Backstage\PermanentCache\Laravel\CachedComponent
+class CachedComponent extends Backstage\PermanentCache\Laravel\CachedComponent
 {
     protected $store = 'file:unique-cache-key';
 
