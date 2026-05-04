@@ -4,6 +4,7 @@ namespace Backstage\PermanentCache\Laravel;
 
 use Backstage\PermanentCache\Laravel\Commands\PermanentCacheStatusCommand;
 use Backstage\PermanentCache\Laravel\Commands\UpdatePermanentCacheCommand;
+use Backstage\PermanentCache\Laravel\Commands\WarmPermanentCacheCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -15,7 +16,8 @@ class PermanentCacheServiceProvider extends PackageServiceProvider
         $package->name('laravel-permanent-cache')
             ->hasCommands(
                 PermanentCacheStatusCommand::class,
-                UpdatePermanentCacheCommand::class
+                UpdatePermanentCacheCommand::class,
+                WarmPermanentCacheCommand::class,
             )
             ->hasConfigFile();
     }
@@ -27,11 +29,22 @@ class PermanentCacheServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
-        $this->callAfterResolving(
-            Schedule::class,
-            fn (Schedule $schedule) => collect(Facades\PermanentCache::configuredCaches())
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            collect(Facades\PermanentCache::configuredCaches())
                 ->filter(fn ($cacher) => is_a($cacher, Scheduled::class))
-                ->each(fn ($cacher) => $cacher->schedule($schedule->job($cacher)))
-        );
+                ->each(fn ($cacher) => $cacher->schedule($schedule->job($cacher)));
+
+            foreach (Facades\PermanentCache::registeredModels() as $modelClass) {
+                $expression = (new $modelClass)->getPermanentCacheExpression();
+
+                if ($expression === null) {
+                    continue;
+                }
+
+                $schedule->command(WarmPermanentCacheCommand::class, [
+                    '--filter='.class_basename($modelClass),
+                ])->cron($expression);
+            }
+        });
     }
 }
