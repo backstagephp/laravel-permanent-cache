@@ -63,12 +63,12 @@ class UpdatePermanentCacheCommand extends Command
             $currentTask = $cache->getName();
             $emoji = ($progressBar->getProgress() % 2 ? Emoji::hourglassNotDone() : Emoji::hourglassDone());
 
-            $progressBar->setMessage('Updating: ' . $currentTask . ' ' . $emoji);
+            $progressBar->setMessage('Updating: '.$currentTask.' '.$emoji);
 
             try {
                 $cache->update($parameters);
             } catch (Exception $exception) {
-                $progressBar->setMessage('Error: ' . $currentTask . ' ' . Emoji::warning());
+                $progressBar->setMessage('Error: '.$currentTask.' '.Emoji::warning());
 
                 sleep(2);
             }
@@ -78,5 +78,18 @@ class UpdatePermanentCacheCommand extends Command
 
         $progressBar->setMessage('Finished!');
         $progressBar->finish();
+
+        $this->newLine();
+
+        $models = collect(PermanentCache::registeredModels())
+            ->filter(fn (string $class) => ! $this->option('filter')
+                || str_contains(strtolower($class), strtolower($this->option('filter'))))
+            ->values();
+
+        if ($models->isNotEmpty()) {
+            $this->call(WarmPermanentCacheCommand::class, [
+                '--filter' => $this->option('filter') ?: null,
+            ]);
+        }
     }
 }
