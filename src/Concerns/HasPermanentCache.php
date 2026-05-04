@@ -39,7 +39,7 @@ trait HasPermanentCache
             $entry = $this->getPermanentCacheEntry();
         }
 
-        return $entry?->value ?? $default;
+        return $entry !== null ? ($entry['value'] ?? $default) : $default;
     }
 
     public function refreshCache(): mixed
@@ -71,9 +71,9 @@ trait HasPermanentCache
 
         [$store, $key] = $this->resolvePermanentCacheStore();
 
-        Cache::store($store)->forever($key, (object) [
+        Cache::store($store)->forever($key, [
             'value' => $value,
-            'updated_at' => now(),
+            'updated_at' => now()->toIso8601String(),
         ]);
 
         PermanentCacheUpdated::dispatch($this, $value);
@@ -97,7 +97,10 @@ trait HasPermanentCache
 
     public function cacheUpdatedAt(): ?Carbon
     {
-        return $this->getPermanentCacheEntry()?->updated_at;
+        $entry = $this->getPermanentCacheEntry();
+        $value = $entry['updated_at'] ?? null;
+
+        return $value ? Carbon::parse($value) : null;
     }
 
     public function getPermanentCacheKey(): string
@@ -154,13 +157,16 @@ trait HasPermanentCache
         return [$store, $key];
     }
 
-    protected function getPermanentCacheEntry(): ?object
+    /**
+     * @return array{value: mixed, updated_at: string}|null
+     */
+    protected function getPermanentCacheEntry(): ?array
     {
         [$store, $key] = $this->resolvePermanentCacheStore();
 
         $entry = Cache::store($store)->get($key);
 
-        return is_object($entry) ? $entry : null;
+        return is_array($entry) ? $entry : null;
     }
 
     protected function shouldQueuePermanentCache(): bool
